@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkbox Example</title>
+</head>
+<body>
+  <h2>เลือกหน่วยงาน</h2>
+
+  <label>
+    <input type="checkbox" id="btn1"> ปุ่ม 1 (หน่วยงานของตัวเอง)
+  </label><br>
+  <label>
+    <input type="checkbox" id="btn2"> ปุ่ม 2 (หน่วยงานใต้สังกัด)
+  </label><br><br>
+
+  <div id="result"></div>
+
+  <script>
+    const myUnit = "หน่วยงานของฉัน";
+    const subUnits = ["หน่วยงาน A", "หน่วยงาน B", "หน่วยงาน C"];
+    const allUnits = [myUnit, ...subUnits];
+
+    const btn1 = document.getElementById("btn1");
+    const btn2 = document.getElementById("btn2");
+    const result = document.getElementById("result");
+
+    function updateUnits() {
+      let selectedUnits = [];
+
+      if (btn1.checked && btn2.checked) {
+        selectedUnits = allUnits;
+      } else if (btn1.checked) {
+        selectedUnits = [myUnit];
+      } else if (btn2.checked) {
+        selectedUnits = subUnits;
+      }
+
+      result.innerHTML = `
+        <strong>แสดงหน่วยงานที่เลือก:</strong><br>
+        <ul>${selectedUnits.map(unit => `<li>${unit}</li>`).join("")}</ul>
+      `;
+    }
+
+    btn1.addEventListener("change", updateUnits);
+    btn2.addEventListener("change", updateUnits);
+
+    // เรียกครั้งแรกเพื่อให้ไม่มีอะไรขึ้นตอนเริ่ม
+    updateUnits();
+  </script>
+</body>
+</html>
